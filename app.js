@@ -2,22 +2,17 @@
 var scores, roundScore, activePlayer, gamePlaying;
 init();
 
-// document.querySelector('#current-' + activePlayer).textContent = dice;
-
 document.querySelector('.btn-roll').addEventListener('click', function () {
     
-    if (gamePlaying)
+    if (gameLive)
         {
-// 1. A Random Number.
     var dice = Math.floor(Math.random() *6) + 1;
     
-// 2. Display the result.
     var diceDOM = document.querySelector('.dice');
     diceDOM.style.display = 'block';
     diceDOM.src = 'dice-'+ dice +'.png';
     
-    
-// 3. Update the round score IF the number obtained on dice was not 1.
+   
     if(dice > 1)
         {
             //add to score
@@ -30,24 +25,15 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
             }
        }    
 });
-//code to give functionality to the dice rolling button 
-// Note here we have created this anonymous function because we only want to use it with ROLL DICE button
-
-
-
-// Giving funcationality to HOLD Button
 
 document.querySelector('.btn-hold').addEventListener('click',function(){
-    if(gamePlaying)
+    if(gameLive)
         {
     
-    // 1. Add current score to players total score
+
     scores[activePlayer] += roundScore;
-    
-    // 2. update the UI.
     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
-    
-    
+   
     // 3. check if the player has won the game.
     if(scores[activePlayer] >= 100)
         {
@@ -55,9 +41,8 @@ document.querySelector('.btn-hold').addEventListener('click',function(){
             document.querySelector('.dice').style.display = 'none';
             document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
             document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
-            gamePlaying = false;
+            gameLive = false;
         }else{
-        // Next player
         nextPlayer();
              }
         }
@@ -74,7 +59,7 @@ function nextPlayer(){
             document.querySelector('.player-0-panel').classList.toggle('active');
             document.querySelector('.player-1-panel').classList.toggle('active');
             
-            document.querySelector('.dice').style.display = 'none';
+         // document.querySelector('.dice').style.display = 'none';
     
 
 }
@@ -83,10 +68,10 @@ document.querySelector('.btn-new').addEventListener('click',init);
 
 function init(){
 
-scores = [0,0];     // Initially scores of both the players are zero
-roundScore = 0;     // Initially in each round the score of each player is zero
-activePlayer = 0;   // Variable to keep track of currently active player
-gamePlaying = true;
+scores = [0,0];     
+roundScore = 0;     
+activePlayer = 0;   
+gameLive = true;
     
 document.querySelector('.dice').style.display = 'none';
 
